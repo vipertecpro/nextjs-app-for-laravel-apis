@@ -10,25 +10,30 @@
     "lint:fix": "next lint --fix"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.17",
+    "@headlessui/react": "^1.7.15",
+    "@heroicons/react": "^2.0.18",
+    "@material-tailwind/react": "^2.1.1",
     "axios": "^0.21.4",
-    "next": "^13.4.19",
+    "embla-carousel-autoplay": "^8.0.0-rc11",
+    "embla-carousel-react": "^8.0.0-rc11",
+    "next": "^13.4.12",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "sharp": "^0.32.4",
     "swr": "^1.3.0"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.22.10",
+    "@babel/eslint-parser": "^7.22.9",
     "@babel/preset-react": "^7.22.5",
     "@next/eslint-plugin-next": "^10.2.3",
-    "@tailwindcss/forms": "^0.5.5",
-    "autoprefixer": "^10.4.15",
+    "@tailwindcss/forms": "^0.5.4",
+    "autoprefixer": "^10.4.14",
     "babel-eslint": "^10.1.0",
-    "eslint": "^8.47.0",
+    "eslint": "^8.45.0",
     "eslint-config-next": "^13.0.3",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-prettier": "^3.4.1",
-    "postcss": "^8.4.28",
+    "postcss": "^8.4.27",
     "prettier": "^2.2.1",
     "tailwindcss": "^3.3.3"
   }
