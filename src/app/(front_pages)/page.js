@@ -39,7 +39,7 @@ export function RenderBooks({ searchTerm, currentPage, setCurrentPage }) {
             <div className={`border-4 border-gray-400 p-5 rounded-2xl`}>
                 <div
                     className={
-                        'grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-5'
+                        'grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 xxl:grid-cols-6 gap-5'
                     }>
                     {data.pageData.data.map(book => (
                         <Link href={`/book/${book.slug}`} key={book.id}>
@@ -61,7 +61,7 @@ export function RenderBooks({ searchTerm, currentPage, setCurrentPage }) {
                                 </CardHeader>
                                 <CardBody className={'p-2'}>
                                     <Typography variant="h5" color="blue-gray">
-                                        {book.name}
+                                        {book.title}
                                     </Typography>
                                     <Typography
                                         variant="small"

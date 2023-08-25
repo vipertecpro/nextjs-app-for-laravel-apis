@@ -37,7 +37,7 @@ export default function RootLayout({ children }) {
                 <>
                     <div
                         className={
-                            'h-screen w-screen flex justify-center align-middle items-center'
+                            'flex justify-center align-middle items-center'
                         }>
                         <h1 className={'text-5xl text-gray-400'}>
                             LOADING . . .{' '}
@@ -51,7 +51,7 @@ export default function RootLayout({ children }) {
                 <>
                     <div
                         className={
-                            'h-screen w-screen flex justify-center align-middle items-center'
+                            'flex justify-center align-middle items-center'
                         }>
                         <h1 className={'text-5xl text-gray-400'}>
                             SERVER IS NOT RUNNING...PLEASE START THE SERVER

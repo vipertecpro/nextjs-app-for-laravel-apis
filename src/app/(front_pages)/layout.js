@@ -8,7 +8,7 @@ export default function FrontLayout({ children }) {
     return (
         <>
             <GuestNavBar user={user} />
-            <div className={'bg-gray-100 h-screen'}>{children}</div>
+            <div className={'bg-gray-100'}>{children}</div>
         </>
     )
 }
