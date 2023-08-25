@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import useSWR from 'swr'
 
 const GuestLayout = ({ children }) => {
     return (
