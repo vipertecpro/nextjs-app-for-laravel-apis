@@ -9,16 +9,41 @@ import {
     Textarea,
     DialogBody,
     DialogHeader,
+    Rating,
+    Typography,
 } from '@material-tailwind/react'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
+import { useAuth } from '@/hooks/auth'
+import InputError from '@/components/InputError'
+import toast from '@/components/Toast'
 async function fetcher(url) {
     const res = await fetch(url)
     if (!res.ok) throw new Error('Failed to fetch data')
     return res.json()
 }
 export default function SingleBook({ params }) {
+    const { submitReviewForm } = useAuth({
+        middleware: 'guest',
+    })
+    const { user } = useAuth({ middleware: 'guest' })
+    const [errors, setErrors] = useState([])
+    const [rated, setRated] = useState(1)
+    const [userReview, setUserReview] = useState('')
+    const notify = useCallback((type, message) => {
+        toast({ type, message })
+    }, [])
+
+    const dismiss = useCallback(() => {
+        toast.dismiss()
+    }, [])
     const [open, setOpen] = useState(false)
-    const handleOpen = () => setOpen(cur => !cur)
+    const handleOpen = () => {
+        if (user === undefined) {
+            notify('warning', 'Please login to submit your review.')
+        } else {
+            setOpen(cur => !cur)
+        }
+    }
     const { data, error } = useSWR(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/client/book/${params.slug}`,
         fetcher,
@@ -33,9 +58,18 @@ export default function SingleBook({ params }) {
     if (!data) {
         return <>Loading...</>
     }
-    const submitReview = (e) => {
+    const submitReview = e => {
         e.preventDefault()
 
+        submitReviewForm({
+            rating: rated,
+            content: userReview,
+            postedBy: user.id,
+            bookId: data.pageData.book.id,
+            setErrors,
+        })
+        handleOpen()
+        notify('success', 'Review has been submitted successfully')
     }
     return (
         <>
@@ -159,44 +193,53 @@ export default function SingleBook({ params }) {
                         </div>
                         {data.pageData.bookReviews.data.map(review => {
                             return (
-                                <>
-                                    <div
-                                        key={review.id}
-                                        className={
-                                            'border-2 border-gray-400 p-5 rounded-xl'
-                                        }>
-                                        <p className="mb-2 text-xs font-semibold tracking-wide text-gray-600 uppercase">
-                                            {review.created_at}
-                                        </p>
-                                        <p className="mb-4 text-base text-gray-700 md:text-lg">
-                                            {review.content}
-                                        </p>
-                                        <div className="flex items-center">
-                                            <div className="mr-3">
-                                                <Image
-                                                    width={100}
-                                                    height={100}
-                                                    alt="avatar"
-                                                    src="/user.png"
-                                                    className="object-cover w-10 h-10 rounded-full shadow-sm"
-                                                />
+                                <div
+                                    key={review.id}
+                                    className={
+                                        'border-2 border-gray-400 p-5 rounded-xl'
+                                    }>
+                                    <p className="mb-2 text-xs font-semibold tracking-wide text-gray-600 uppercase">
+                                        {review.created_at}
+                                    </p>
+                                    <p className="mb-4 text-base text-gray-700 md:text-lg">
+                                        {review.content}
+                                    </p>
+                                    <div className="flex items-center">
+                                        <div className="mr-3">
+                                            <Image
+                                                width={100}
+                                                height={100}
+                                                alt="avatar"
+                                                src="/user.png"
+                                                className="object-cover w-16 h-16 rounded-full shadow-sm"
+                                            />
+                                        </div>
+                                        <div>
+                                            <div className="font-semibold text-gray-800 transition-colors duration-200 hover:text-deep-purple-accent-400">
+                                                Posted By :{' '}
+                                                {review.created_by.name}
                                             </div>
-                                            <div>
-                                                <div className="font-semibold text-gray-800 transition-colors duration-200 hover:text-deep-purple-accent-400">
-                                                    Posted By :{' '}
-                                                    {review.created_by.name}
-                                                </div>
+                                            <div className="flex items-center gap-2">
+                                                <Rating
+                                                    value={review.rating}
+                                                    readonly
+                                                />
+                                                <Typography
+                                                    color="blue-gray"
+                                                    className="font-medium">
+                                                    {review.rating}.0 Rated
+                                                </Typography>
                                             </div>
                                         </div>
                                     </div>
-                                </>
+                                </div>
                             )
                         })}
                     </div>
                 </div>
             </div>
             <Dialog open={open} handler={handleOpen}>
-                <form onSubmit={submitReview}>
+                <form onSubmit={submitReview} method="POST">
                     <div className="flex items-center justify-between">
                         <DialogHeader>
                             New review to "{data.pageData.book.title}"
@@ -216,6 +259,18 @@ export default function SingleBook({ params }) {
                     </div>
                     <DialogBody divider>
                         <div className="grid gap-6">
+                            <div className="flex items-center gap-2">
+                                <Rating
+                                    value={rated}
+                                    onChange={value => setRated(value)}
+                                />
+                                <Typography
+                                    color="blue-gray"
+                                    className="font-medium">
+                                    {rated}.0 Rated
+                                </Typography>
+                            </div>
+
                             <Textarea
                                 name={'review'}
                                 placeholder="Write review . . ."
@@ -223,8 +278,13 @@ export default function SingleBook({ params }) {
                                 labelProps={{
                                     className: 'hidden',
                                 }}
+                                onChange={e => setUserReview(e.target.value)}
                                 className="!border !border-gray-300 bg-white text-gray-900 shadow-lg shadow-gray-900/5 ring-4 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
                                 containerProps={{ className: 'min-w-[100px]' }}
+                            />
+                            <InputError
+                                messages={errors.content}
+                                className="mt-2"
                             />
                         </div>
                     </DialogBody>
@@ -236,9 +296,9 @@ export default function SingleBook({ params }) {
                             close
                         </Button>
                         <Button
+                            type={'submit'}
                             variant="gradient"
-                            color="green"
-                            onClick={handleOpen}>
+                            color="green">
                             submit review
                         </Button>
                     </DialogFooter>

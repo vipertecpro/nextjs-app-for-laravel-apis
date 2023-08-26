@@ -95,7 +95,23 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
             .post('/email/verification-notification')
             .then(response => setStatus(response.data.status))
     }
+    const submitReviewForm = async ({ setErrors, ...props }) => {
+        await csrf()
 
+        setErrors([])
+
+        axios
+            .post(
+                `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/client/submitBookReview`,
+                props,
+            )
+            .then(() => mutate())
+            .catch(error => {
+                if (error.response.status !== 422) throw error
+
+                setErrors(error.response.data.errors)
+            })
+    }
     const logout = async () => {
         if (!error) {
             await axios.post('/logout').then(() => mutate())
@@ -123,5 +139,6 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
         resetPassword,
         resendEmailVerification,
         logout,
+        submitReviewForm,
     }
 }

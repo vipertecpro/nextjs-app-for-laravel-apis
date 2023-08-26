@@ -5,6 +5,8 @@ import Head from 'next/head'
 const inter = Inter({ subsets: ['latin'] })
 import { ThemeProvider } from '@material-tailwind/react'
 import useSWR from 'swr'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 async function fetcher(url) {
     const res = await fetch(url)
     if (!res.ok) throw new Error('Failed to fetch data')
@@ -37,7 +39,7 @@ export default function RootLayout({ children }) {
                 <>
                     <div
                         className={
-                            'flex justify-center align-middle items-center'
+                            'flex justify-center align-middle items-center h-screen'
                         }>
                         <h1 className={'text-5xl text-gray-400'}>
                             LOADING . . .{' '}
@@ -51,7 +53,7 @@ export default function RootLayout({ children }) {
                 <>
                     <div
                         className={
-                            'flex justify-center align-middle items-center'
+                            'flex justify-center align-middle items-center h-screen'
                         }>
                         <h1 className={'text-5xl text-gray-400'}>
                             SERVER IS NOT RUNNING...PLEASE START THE SERVER
@@ -74,6 +76,16 @@ export default function RootLayout({ children }) {
             </Head>
             <body className={inter.className}>
                 <RenderTheme />
+                <ToastContainer
+                    position="top-right"
+                    autoClose={8000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    draggable={false}
+                    pauseOnVisibilityChange
+                    closeOnClick
+                    pauseOnHover
+                />
             </body>
         </html>
     )
