@@ -63,7 +63,11 @@ export default function RootLayout({ children }) {
             )
         }
         if (isRunning) {
-            return <ThemeProvider>{children}</ThemeProvider>
+            return (
+                <ThemeProvider>
+                    <div className={'w-full h-full'}>{children}</div>
+                </ThemeProvider>
+            )
         }
     }
     return (

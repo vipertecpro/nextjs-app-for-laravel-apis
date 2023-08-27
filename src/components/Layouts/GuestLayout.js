@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import useSWR from 'swr'
+import Image from 'next/image'
 
 const GuestLayout = ({ children }) => {
     return (
@@ -14,9 +14,10 @@ const GuestLayout = ({ children }) => {
                         {children}
                     </div>
                     <div className="relative hidden w-0 flex-1 lg:block">
-                        <img
+                        <Image
+                            fill
                             className="absolute inset-0 h-full w-full object-cover"
-                            src="https://images.unsplash.com/photo-1496917756835-20cb06e75b4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1908&q=80"
+                            src={'/login_banner.png'}
                             alt=""
                         />
                     </div>

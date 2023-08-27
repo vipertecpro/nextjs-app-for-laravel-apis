@@ -6,10 +6,8 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import { Fragment } from 'react'
 import { useAuth } from '@/hooks/auth'
-import { usePathname } from 'next/navigation'
 export default function GuestNavBar({ user }) {
     const { logout } = useAuth()
-    const pathName = usePathname()
     return (
         <>
             <Disclosure as="header" className="bg-gray-50">
@@ -71,23 +69,13 @@ export default function GuestNavBar({ user }) {
                                         </>
                                     ) : (
                                         <>
-                                            {pathName.includes('dashboard') ? (
-                                                <Link
-                                                    className="items-center overflow-hidden rounded-xl bg-gray-600 px-5 py-1 text-white focus:outline-none focus:ring active:bg-indigo-500"
-                                                    href={'/'}>
-                                                    <span className="text-sm font-medium">
-                                                        Back to home
-                                                    </span>
-                                                </Link>
-                                            ) : (
-                                                <Link
-                                                    className="items-center overflow-hidden rounded-xl bg-gray-600 px-5 py-1 text-white focus:outline-none focus:ring active:bg-indigo-500"
-                                                    href={'/dashboard'}>
-                                                    <span className="text-sm font-medium">
-                                                        Go to dashboard
-                                                    </span>
-                                                </Link>
-                                            )}
+                                            <Link
+                                                className="items-center overflow-hidden rounded-xl bg-gray-600 px-5 py-1 text-white focus:outline-none focus:ring active:bg-indigo-500"
+                                                href={'/dashboard'}>
+                                                <span className="text-sm font-medium">
+                                                    Go to dashboard
+                                                </span>
+                                            </Link>
 
                                             <Menu
                                                 as="div"
