@@ -26,7 +26,6 @@ export function RenderBooks({ searchTerm, currentPage, setCurrentPage }) {
             refreshInterval: 10000,
         },
     )
-
     if (error) {
         return <>Failed to load</>
     }
@@ -36,6 +35,68 @@ export function RenderBooks({ searchTerm, currentPage, setCurrentPage }) {
 
     return (
         <>
+            <div className="flex items-center justify-between gap-3 mx-auto pb-5">
+                <Link
+                    className={`group relative inline-flex items-center overflow-hidden rounded border-2 border-current px-6 py-1  ${
+                        currentPage === 1
+                            ? 'pointer-events-none'
+                            : 'text-indigo-600 focus:outline-none ring-2 ring-indigo-200 active:text-indigo-500 ring-offset-4'
+                    }`}
+                    href={'/'}
+                    onClick={() => setCurrentPage(currentPage - 1)}>
+                    <span className="absolute -start-full transition-all group-hover:start-4">
+                        <svg
+                            className="h-5 w-5 rotate-180"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M17 8l4 4m0 0l-4 4m4-4H3"
+                            />
+                        </svg>
+                    </span>
+                    <span className="text-lg font-medium transition-all group-hover:ml-4">
+                        Previous
+                    </span>
+                </Link>
+                <p className="text-2xl font-bold text-gray-900">
+                    {currentPage}
+                    <span className="mx-0.25">/</span>
+                    {data.pageData.last_page}
+                </p>
+                <Link
+                    className={`group relative inline-flex items-center overflow-hidden rounded border-2 border-current px-6 py-1  ${
+                        currentPage === data.pageData.last_page
+                            ? 'pointer-events-none'
+                            : 'text-indigo-600 focus:outline-none ring-2 ring-indigo-200 active:text-indigo-500 ring-offset-4'
+                    }`}
+                    href={'/'}
+                    disabled={currentPage === data.pageData.last_page}
+                    onClick={() => setCurrentPage(currentPage + 1)}>
+                    <span className="absolute -end-full transition-all group-hover:end-4">
+                        <svg
+                            className="h-5 w-5 rtl:rotate-180"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M17 8l4 4m0 0l-4 4m4-4H3"
+                            />
+                        </svg>
+                    </span>
+                    <span className="text-lg font-medium transition-all group-hover:me-4">
+                        Next
+                    </span>
+                </Link>
+            </div>
             <div className={`border-4 border-gray-400 p-5 rounded-2xl`}>
                 <div
                     className={
@@ -81,26 +142,6 @@ export function RenderBooks({ searchTerm, currentPage, setCurrentPage }) {
                         </Link>
                     ))}
                 </div>
-            </div>
-            <div className="flex items-center justify-center gap-3 mx-auto p-20">
-                {/* Pagination code here */}
-                <Link
-                    href={'/'}
-                    disabled={currentPage === 1}
-                    onClick={() => setCurrentPage(currentPage - 1)}>
-                    Previous Page
-                </Link>
-                <p className="text-2xl font-bold text-gray-900">
-                    {currentPage}
-                    <span className="mx-0.25">/</span>
-                    {data.pageData.last_page}
-                </p>
-                <Link
-                    href={'/'}
-                    disabled={currentPage === data.pageData.last_page}
-                    onClick={() => setCurrentPage(currentPage + 1)}>
-                    Next Page
-                </Link>
             </div>
         </>
     )
