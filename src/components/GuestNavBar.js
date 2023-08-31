@@ -46,7 +46,9 @@ export default function GuestNavBar({ user }) {
                                     </Disclosure.Button>
                                 </div>
                                 <div className="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center space-x-2">
-                                    {!user ? (
+                                    {user === undefined ||
+                                    user === null ||
+                                    user.status === 'error' ? (
                                         <>
                                             <Link
                                                 href={`/login`}
@@ -128,7 +130,7 @@ export default function GuestNavBar({ user }) {
                             aria-label="Global">
                             <div className="border-t border-gray-700 pb-3 pt-4">
                                 <div className="flex items-center px-4">
-                                    {user ? (
+                                    {user !== undefined && user !== null ? (
                                         <>
                                             <div className="flex-shrink-0">
                                                 <img
@@ -182,7 +184,7 @@ export default function GuestNavBar({ user }) {
                                         </>
                                     )}
                                 </div>
-                                {user ? (
+                                {user !== undefined && user !== null ? (
                                     <>
                                         <div className="mt-3 space-y-1 px-2">
                                             <Disclosure.Button

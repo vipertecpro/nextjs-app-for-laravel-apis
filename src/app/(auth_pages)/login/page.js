@@ -23,14 +23,17 @@ const LoginPage = () => {
     const [password, setPassword] = useState('')
     const [shouldRemember, setShouldRemember] = useState(false)
     const [errors, setErrors] = useState([])
-    const [status, setStatus] = useState(null)
+    const [message, setMessage] = useState({
+        messageData: '',
+        messageStatus: '',
+    })
 
     useEffect(() => {
         if (router.query !== undefined) {
             if (router.query.reset?.length > 0 && errors.length === 0) {
-                setStatus(atob(router.query.reset))
+                setMessage(atob(router.query.reset))
             } else {
-                setStatus(null)
+                setMessage(null)
             }
         }
     })
@@ -38,19 +41,19 @@ const LoginPage = () => {
     const submitForm = async event => {
         event.preventDefault()
 
-        login({
+        await login({
             email,
             password,
             remember: shouldRemember,
             setErrors,
-            setStatus,
+            setMessage,
         })
     }
 
     return (
         <GuestLayout>
             <AuthCard pathName={routPathName}>
-                <AuthSessionStatus className="mb-4" status={status} />
+                <AuthSessionStatus className="mb-4" status={message} />
                 <div className="mt-10">
                     <div>
                         <form

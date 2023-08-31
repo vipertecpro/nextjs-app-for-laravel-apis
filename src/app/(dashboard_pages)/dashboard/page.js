@@ -38,11 +38,13 @@ function classNames(...classes) {
 export default function Dashboard() {
     return (
         <>
-            <Breadcrumbs className={'w-screen'}>
-                <Link href="#" className="opacity-60 text-2xl font-bold">
-                    Dashboard
-                </Link>
-            </Breadcrumbs>
+            <div className={'flex relative'}>
+                <Breadcrumbs className={'bg-amber-300'}>
+                    <Link href="#" className="opacity-60 text-2xl font-bold">
+                        Dashboard
+                    </Link>
+                </Breadcrumbs>
+            </div>
             <div className={'p-2'}>
                 <div className={'border-2 rounded-lg p-5'}>
                     <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">

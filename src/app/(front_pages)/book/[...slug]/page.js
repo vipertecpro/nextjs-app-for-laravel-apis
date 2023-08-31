@@ -113,7 +113,7 @@ export default function SingleBook({ params }) {
                             </div>
                         </div>
                         <div className={'my-5'}>
-                            <div className="grid border divide-y rounded 2xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 xxl:grid-cols-2 2xl:grid-cols-2 sm:divide-y-0 sm:divide-x">
+                            <div className="grid border divide-y rounded sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 sm:divide-y-0 sm:divide-x">
                                 <div className="flex flex-col justify-between p-5">
                                     <div>
                                         <p className="text-lg font-semibold text-gray-800 sm:text-base">
