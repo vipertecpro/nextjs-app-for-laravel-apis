@@ -7,15 +7,6 @@ import { ThemeProvider } from '@material-tailwind/react'
 import useSWR from 'swr'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-async function fetcher(url) {
-    const res = await fetch(url)
-    if (!res.ok) throw new Error('Failed to fetch data')
-    return res.json()
-}
-export const metadata = {
-    title: process.env.NEXT_APP_NAME,
-    description: 'Book Store',
-}
 export default function RootLayout({ children }) {
     const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL
     const fetcher = url => fetch(url).then(res => res.json())

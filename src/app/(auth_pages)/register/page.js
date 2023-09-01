@@ -6,37 +6,52 @@ import { Input } from '@material-tailwind/react'
 import InputError from '@/components/InputError'
 import Label from '@/components/Label'
 import { useAuth } from '@/hooks/auth'
-import { useState } from 'react'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import AuthSessionStatus from '@/components/AuthSessionStatus'
 
 const RegisterPage = () => {
+    const router = useRouter()
+    const routPathName = usePathname()
     const { register } = useAuth({
         middleware: 'guest',
-        redirectIfAuthenticated: '/dashboard',
+        redirectIfAuthenticated: '/login',
     })
-
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
     const [errors, setErrors] = useState([])
+    const [message, setMessage] = useState({
+        messageData: '',
+        messageStatus: '',
+    })
 
+    useEffect(() => {
+        if (router.query !== undefined) {
+            if (router.query.reset?.length > 0 && errors.length === 0) {
+                setMessage(atob(router.query.reset))
+            } else {
+                setMessage(null)
+            }
+        }
+    })
     const submitForm = event => {
         event.preventDefault()
-
         register({
             name,
             email,
             password,
             password_confirmation: passwordConfirmation,
             setErrors,
+            setMessage,
         })
     }
-    const routPathName = usePathname()
     return (
         <GuestLayout>
             <AuthCard pathName={routPathName}>
-                <div className="mt-10">
+                <AuthSessionStatus status={message} />
+                <div className="mt-5">
                     <div>
                         <form
                             onSubmit={submitForm}

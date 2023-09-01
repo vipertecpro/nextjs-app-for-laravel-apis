@@ -13,12 +13,10 @@ import { usePathname, useRouter } from 'next/navigation'
 const LoginPage = () => {
     const router = useRouter()
     const routPathName = usePathname()
-
     const { login } = useAuth({
         middleware: 'guest',
         redirectIfAuthenticated: '/dashboard',
     })
-
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [shouldRemember, setShouldRemember] = useState(false)
@@ -53,8 +51,8 @@ const LoginPage = () => {
     return (
         <GuestLayout>
             <AuthCard pathName={routPathName}>
-                <AuthSessionStatus className="mb-4" status={message} />
-                <div className="mt-10">
+                <AuthSessionStatus status={message} />
+                <div className="mt-5">
                     <div>
                         <form
                             method="POST"
