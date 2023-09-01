@@ -11,6 +11,7 @@ import {
     DialogHeader,
     Rating,
     Typography,
+    Carousel,
 } from '@material-tailwind/react'
 import { useCallback, useState } from 'react'
 import { useAuth } from '@/hooks/auth'
@@ -73,44 +74,68 @@ export default function SingleBook({ params }) {
     }
     return (
         <>
-            <div className="p-4">
-                <div className="grid gap-10 row-gap-8 lg:grid-cols-5 mb-10">
+            <div className="p-2 border-b-2">
+                <div className="grid gap-10 row-gap-1 lg:grid-cols-8 mb-5">
                     <div className="col-span-1">
                         <Link
                             href={'/'}
-                            className="flex items-center justify-center w-full h-12 px-6 mt-6 font-medium tracking-wide text-white transition duration-200 bg-gray-800 rounded shadow-md hover:bg-gray-900 focus:shadow-outline focus:outline-none">
+                            className="flex items-center justify-center w-full h-10 px-2 mt-6 font-medium tracking-wide text-white transition duration-200 bg-gray-800 rounded shadow-md hover:bg-gray-900 focus:shadow-outline focus:outline-none">
                             Back To Books
                         </Link>
                     </div>
                 </div>
                 <div className="grid gap-10 row-gap-8 lg:grid-cols-5">
                     <div className="lg:col-span-2">
-                        <p className="mb-2 text-xs font-semibold tracking-wide text-gray-600 uppercase">
-                            {data.pageData.book.created_at}
-                        </p>
-                        <div className="mb-3">
+                        <div>
+                            <Carousel className="rounded-xl">
+                                <img
+                                    src={'/placeholder.png'}
+                                    alt="image 1"
+                                    className="h-auto max-w-full object-cover"
+                                />
+                                <img
+                                    src={'/placeholder.png'}
+                                    alt="image 1"
+                                    className="h-auto max-w-full object-cover"
+                                />
+                                <img
+                                    src={'/placeholder.png'}
+                                    alt="image 1"
+                                    className="h-auto max-w-full object-cover"
+                                />
+                            </Carousel>
+                        </div>
+                        <div className="my-5">
                             <div className="inline-block text-black transition-colors duration-200 hover:text-deep-purple-accent-400">
                                 <p className="font-sans text-xl font-extrabold leading-none tracking-tight lg:text-4xl xl:text-5xl">
                                     {data.pageData.book.title}
                                 </p>
                             </div>
                         </div>
-                        <div className="flex items-center">
-                            <div className="mr-3">
-                                <img
-                                    alt="avatar"
-                                    src="/user.png"
-                                    className="object-cover w-10 h-10 rounded-full shadow-sm"
-                                />
-                            </div>
-                            <div>
-                                <div className="font-semibold text-gray-800 transition-colors duration-200 hover:text-deep-purple-accent-400">
-                                    {data.pageData.book.author}
+                        <div
+                            className={
+                                'flex justify-start flex-col sm:flex-row sm:justify-between'
+                            }>
+                            <div className="flex items-center">
+                                <div className="mr-3">
+                                    <img
+                                        alt="avatar"
+                                        src="/user.png"
+                                        className="object-cover w-10 h-10 rounded-full shadow-sm"
+                                    />
                                 </div>
-                                <p className="text-sm font-medium leading-4 text-gray-600">
-                                    Author
-                                </p>
+                                <div>
+                                    <div className="font-semibold text-gray-800 transition-colors duration-200 hover:text-deep-purple-accent-400">
+                                        {data.pageData.book.author}
+                                    </div>
+                                    <p className="text-sm font-medium leading-4 text-gray-600">
+                                        Author
+                                    </p>
+                                </div>
                             </div>
+                            <p className="mb-2 text-xs font-semibold tracking-wide text-gray-600 uppercase">
+                                {data.pageData.book.created_at}
+                            </p>
                         </div>
                         <div className={'my-5'}>
                             <div className="grid border divide-y rounded sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 sm:divide-y-0 sm:divide-x">
@@ -159,7 +184,6 @@ export default function SingleBook({ params }) {
                             </div>
                         </div>
                     </div>
-
                     <div className="flex flex-col space-y-8 lg:col-span-3">
                         <div className="flex justify-between items-center text-black transition-colors">
                             <p className="font-sans text-xl font-extrabold leading-none tracking-tight lg:text-4xl xl:text-5xl">

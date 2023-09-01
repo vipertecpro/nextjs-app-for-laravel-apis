@@ -104,7 +104,7 @@ export function RenderBooks({ searchTerm, currentPage, setCurrentPage }) {
                     }>
                     {data.pageData.data.map(book => (
                         <Link href={`/book/${book.slug}`} key={book.id}>
-                            <Card className="max-w-100 md:max-w-[18rem] overflow-hidden">
+                            <Card className="max-w-100 md:max-w-[18rem] overflow-hidden hover:ring-2 ring-offset-4 ring-gray-600">
                                 {/* Details for each book */}
                                 <CardHeader
                                     floated={false}

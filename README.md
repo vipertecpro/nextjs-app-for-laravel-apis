@@ -1,91 +1,33 @@
-# Laravel Breeze - Next.js Edition 🏝️
+## Next.js Frontend for Laravel APIs: A Full-Stack Web Application for Book Reviews and User Management
 
 ## Introduction
+This project serves as the frontend application built using **Next.js 13.4 with App Router**, designed to work seamlessly with a Laravel backend. It provides a user-friendly interface for managing book reviews and more. This is the backend application [Laravel-React Dashboard](https://github.com/vipertecpro/laravel-react-dashboard) using Laravel Breeze with React.
 
-This repository is an implementation of the [Laravel Breeze](https://laravel.com/docs/starter-kits) application / authentication starter kit frontend in [Next.js](https://nextjs.org). All of the authentication boilerplate is already written for you - powered by [Laravel Sanctum](https://laravel.com/docs/sanctum), allowing you to quickly begin pairing your beautiful Next.js frontend with a powerful Laravel backend.
+## Features
+- **User Authentication**: Secure login and registration using JWT and CSRF token protection.
+- **Guest Features**: Guests can view a list of books, search, paginate through pages, and view single books with multiple reviews.
+- **User Features**: Once logged in, users can view books created by them, create new books, remove and update existing books. They can also view reviews received on their books and a list of reviews given by them.
+- **State Management**: Utilizes SWR for client-side state management.
+- **UI Components**: Built with Headless UI, Hero Icons, and Material Tailwind for a sleek user interface.
+- **APIs**: Axios is used for API calls, fully integrated with the Laravel backend.
+- **Notifications**: Utilizes React Toastify for responsive notifications.
 
-## Official Documentation
+## Technologies Used
+- **Frontend**: **Next.js 13.4 with App Router**
+- **State Management**: SWR
+- **UI Library**: Headless UI, Hero Icons, Material Tailwind
+- **HTTP Client**: Axios
+- **Package Manager**: npm
 
-### Installation
+## Code Highlights
+- **SWR**: For efficient data fetching and state management.
 
-First, create a Next.js compatible Laravel backend by installing Laravel Breeze into a [fresh Laravel application](https://laravel.com/docs/installation) and installing Breeze's API scaffolding:
+## Future Enhancements
+- Implement real-time notifications.
+- Add more interactive UI components.
 
-```bash
-# Create the Laravel application...
-laravel new next-backend
-
-cd next-backend
-
-# Install Breeze and dependencies...
-composer require laravel/breeze --dev
-
-php artisan breeze:install api
-
-# Run database migrations...
-php artisan migrate
-```
-
-Next, ensure that your application's `APP_URL` and `FRONTEND_URL` environment variables are set to `http://localhost:8000` and `http://localhost:3000`, respectively.
-
-After defining the appropriate environment variables, you may serve the Laravel application using the `serve` Artisan command:
-
-```bash
-# Serve the application...
-php artisan serve
-```
-
-Next, clone this repository and install its dependencies with `yarn install` or `npm install`. Then, copy the `.env.example` file to `.env.local` and supply the URL of your backend:
-
-```
-NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
-```
-
-Finally, run the application via `npm run dev`. The application will be available at `http://localhost:3000`:
-
-```
-npm run dev
-```
-
-> Note: Currently, we recommend using `localhost` during local development of your backend and frontend to avoid CORS "Same-Origin" issues.
-
-### Authentication Hook
-
-This Next.js application contains a custom `useAuth` React hook, designed to abstract all authentication logic away from your pages. In addition, the hook can be used to access the currently authenticated user:
-
-```js
-const ExamplePage = () => {
-    const { logout, user } = useAuth({ middleware: 'auth' })
-
-    return (
-        <>
-            <p>{user?.name}</p>
-
-            <button onClick={logout}>Sign out</button>
-        </>
-    )
-}
-
-export default ExamplePage
-```
-
-> Note: You will need to use [optional chaining](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining) (`user?.name` instead of `user.name`) when accessing properties on the user object to account for Next.js's initial server-side render.
-
-### Named Routes
-
-For convenience, [Ziggy](https://github.com/tighten/ziggy#spas-or-separate-repos) may be used to reference your Laravel application's named route URLs from your React application.
-
-## Contributing
-
-Thank you for considering contributing to Breeze Next! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-Please review [our security policy](https://github.com/laravel/breeze-next/security/policy) on how to report security vulnerabilities.
-
-## License
-
-Laravel Breeze Next is open-sourced software licensed under the [MIT license](LICENSE.md).
+## How to Run
+1. Clone the repository.
+2. Run `npm install`.
+3. Set up your `.env` file.
+4. Run `npm run dev`.
