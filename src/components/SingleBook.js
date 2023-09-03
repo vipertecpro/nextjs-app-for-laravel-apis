@@ -12,6 +12,7 @@ import {
     Rating,
     Typography,
     Carousel,
+    Chip,
 } from '@material-tailwind/react'
 import { useCallback, useState } from 'react'
 import { useAuth } from '@/hooks/auth'
@@ -212,50 +213,9 @@ export default function SingleBook({ params }) {
                                 </button>
                             </div>
                         </div>
-                        {data.pageData.bookReviews.data.map(review => {
-                            return (
-                                <div
-                                    key={review.id}
-                                    className={
-                                        'border-2 border-gray-400 p-5 rounded-xl'
-                                    }>
-                                    <p className="mb-2 text-xs font-semibold tracking-wide text-gray-600 uppercase">
-                                        {review.created_at}
-                                    </p>
-                                    <p className="mb-4 text-base text-gray-700 md:text-lg">
-                                        {review.content}
-                                    </p>
-                                    <div className="flex items-center">
-                                        <div className="mr-3">
-                                            <Image
-                                                width={100}
-                                                height={100}
-                                                alt="avatar"
-                                                src="/user.png"
-                                                className="object-cover w-16 h-16 rounded-full shadow-sm"
-                                            />
-                                        </div>
-                                        <div>
-                                            <div className="font-semibold text-gray-800 transition-colors duration-200 hover:text-deep-purple-accent-400">
-                                                Posted By :{' '}
-                                                {review.created_by.name}
-                                            </div>
-                                            <div className="flex items-center gap-2">
-                                                <Rating
-                                                    value={review.rating}
-                                                    readonly
-                                                />
-                                                <Typography
-                                                    color="blue-gray"
-                                                    className="font-medium">
-                                                    {review.rating}.0 Rated
-                                                </Typography>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            )
-                        })}
+                        {data.pageData.bookReviews.data.map(review => (
+                            <BookReviewsList key={review.id} review={review} />
+                        ))}
                     </div>
                 </div>
             </div>
@@ -325,6 +285,60 @@ export default function SingleBook({ params }) {
                     </DialogFooter>
                 </form>
             </Dialog>
+        </>
+    )
+}
+function BookReviewsList({ review }) {
+    const [showFullDescription, setFullDescription] = useState(false)
+    const showFullDescriptionHandler = () => {
+        setFullDescription(!showFullDescription)
+    }
+    const description = showFullDescription
+        ? review.content
+        : review.content.slice(0, 250)
+    return (
+        <>
+            <div
+                key={review.id}
+                className={'border-2 border-gray-400 p-5 rounded-xl'}>
+                <p className="mb-2 text-xs font-semibold tracking-wide text-gray-600 uppercase">
+                    {review.created_at}
+                </p>
+                <p className="mb-4 text-base text-gray-700 md:text-lg">
+                    {description} {showFullDescription ? '' : '.....'}
+                    <button
+                        onClick={showFullDescriptionHandler}
+                        className={`text-sm font-bold rounded px-2 text-white  ${
+                            showFullDescription ? 'bg-gray-800' : 'bg-gray-900'
+                        }`}>
+                        Read {showFullDescription ? 'Less' : 'More'}
+                    </button>
+                </p>
+                <div className="flex items-center">
+                    <div className="mr-3">
+                        <Image
+                            width={100}
+                            height={100}
+                            alt="avatar"
+                            src="/user.png"
+                            className="object-cover w-16 h-16 rounded-full shadow-sm"
+                        />
+                    </div>
+                    <div>
+                        <div className="font-semibold text-gray-800 transition-colors duration-200 hover:text-deep-purple-accent-400">
+                            Posted By : {review.created_by.name}
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <Rating value={review.rating} readonly />
+                            <Typography
+                                color="blue-gray"
+                                className="font-medium">
+                                {review.rating}.0 Rated
+                            </Typography>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </>
     )
 }
