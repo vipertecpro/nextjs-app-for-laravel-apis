@@ -27,7 +27,6 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
                 },
             })
             .then(res => {
-                console.log(res, '878797987987987987987')
                 return res.data.user
             })
             .catch(error => {

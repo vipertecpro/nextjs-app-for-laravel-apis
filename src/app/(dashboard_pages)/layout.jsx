@@ -56,8 +56,8 @@ import {
     BookmarkIcon,
 } from '@heroicons/react/20/solid'
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
-import GuestNavBar from '@/components/GuestNavBar'
+import { usePathname } from 'next/navigation'
+import Image from 'next/image'
 
 const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: HomeIcon },
@@ -77,27 +77,9 @@ const navigation = [
         icon: ArrowTopRightOnSquareIcon,
     },
 ]
-const userNavigation = [{ name: 'Sign out', href: '#' }]
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
-}
-function ClockIcon() {
-    return (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="h-3 w-3">
-            <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-        </svg>
-    )
 }
 export default function DashboardPagesLayout({ children }) {
     const { user, logout } = useAuth({ middleware: 'auth' })
@@ -256,26 +238,20 @@ export default function DashboardPagesLayout({ children }) {
                         </button>
                         <div className="flex flex-1 justify-end px-4">
                             <div className="ml-4 flex items-center md:ml-6">
-                                {/*<button*/}
-                                {/*    type="button"*/}
-                                {/*    className="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">*/}
-                                {/*    <span className="sr-only">*/}
-                                {/*        View notifications*/}
-                                {/*    </span>*/}
-                                {/*    <BellIcon*/}
-                                {/*        className="h-6 w-6"*/}
-                                {/*        aria-hidden="true"*/}
-                                {/*    />*/}
-                                {/*</button>*/}
-                                {/* Profile dropdown */}
+                                <Link
+                                    className="items-center overflow-hidden rounded-xl bg-gray-600 px-5 py-1 text-white focus:outline-none focus:ring active:bg-indigo-500 me-5"
+                                    href={'/'}>
+                                    <span className="text-sm font-medium">
+                                        Back to main site
+                                    </span>
+                                </Link>
                                 <Popover className="relative">
-                                    <Popover.Button className="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                    <Popover.Button className="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
                                         <BellIcon
                                             className="h-6 w-6"
                                             aria-hidden="true"
                                         />
                                     </Popover.Button>
-
                                     <Transition
                                         as={Fragment}
                                         enter="transition ease-out duration-200"
@@ -319,9 +295,11 @@ export default function DashboardPagesLayout({ children }) {
                                             <span className="sr-only">
                                                 Open user menu
                                             </span>
-                                            <img
+                                            <Image
+                                                width={100}
+                                                height={100}
                                                 className="h-8 w-8 rounded-full"
-                                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                src={'/user.png'}
                                                 alt=""
                                             />
                                         </Menu.Button>
@@ -334,7 +312,30 @@ export default function DashboardPagesLayout({ children }) {
                                         leave="transition ease-in duration-75"
                                         leaveFrom="transform opacity-100 scale-100"
                                         leaveTo="transform opacity-0 scale-95">
-                                        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                        <Menu.Items className="absolute right-0 z-10 mt-2 w-fit origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                            {user !== undefined ? (
+                                                <Menu.Item
+                                                    className={
+                                                        'border-b-2 space-y-1 font-semibold'
+                                                    }>
+                                                    <div>
+                                                        <p
+                                                            className={
+                                                                'block px-4 text-sm text-gray-700'
+                                                            }>
+                                                            {user.name}
+                                                        </p>
+                                                        <p
+                                                            className={
+                                                                'block px-4 text-sm text-gray-700'
+                                                            }>
+                                                            {user.email}
+                                                        </p>
+                                                    </div>
+                                                </Menu.Item>
+                                            ) : (
+                                                ''
+                                            )}
                                             <Menu.Item>
                                                 <Link
                                                     href={'#'}
@@ -352,9 +353,7 @@ export default function DashboardPagesLayout({ children }) {
                         </div>
                     </div>
                     <main className="flex-1">
-                        <div className="mx-auto max-w-full">
-                            {children}
-                        </div>
+                        <div className="mx-auto max-w-full">{children}</div>
                     </main>
                 </div>
             </div>
