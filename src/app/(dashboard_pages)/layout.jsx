@@ -57,6 +57,7 @@ import {
 } from '@heroicons/react/20/solid'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
+import GuestNavBar from '@/components/GuestNavBar'
 
 const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: HomeIcon },
@@ -350,11 +351,13 @@ export default function DashboardPagesLayout({ children }) {
                             </div>
                         </div>
                     </div>
-                    <main className="flex-1 bg-gray-50">{children}</main>
+                    <main className="flex-1">
+                        <div className="mx-auto max-w-full">
+                            {children}
+                        </div>
+                    </main>
                 </div>
             </div>
-            {/*<GuestNavBar user={user} />*/}
-            {/*{children}*/}
         </>
     )
 }

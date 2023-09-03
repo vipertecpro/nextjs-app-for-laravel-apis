@@ -1,50 +1,12 @@
-'use client'
-import { Breadcrumbs } from '@material-tailwind/react'
 import Link from 'next/link'
-import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/20/solid'
-import {
-    CursorArrowRaysIcon,
-    EnvelopeOpenIcon,
-    UsersIcon,
-} from '@heroicons/react/24/outline'
-
-const stats = [
-    {
-        id: 1,
-        name: 'Total Subscribers',
-        stat: '71,897',
-        change: '122',
-        changeType: 'increase',
-    },
-    {
-        id: 2,
-        name: 'Avg. Open Rate',
-        stat: '58.16%',
-        change: '5.4%',
-        changeType: 'increase',
-    },
-    {
-        id: 3,
-        name: 'Avg. Click Rate',
-        stat: '24.57%',
-        change: '3.2%',
-        changeType: 'decrease',
-    },
-]
-
-function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
+import BreadCrumbs from '@/components/BreadCrumbs'
+export const metadata = {
+    title: process.env.NEXT_APPLICATION_NAME + ' - Dashboard',
 }
 export default function Dashboard() {
     return (
         <>
-            <div className={'flex relative'}>
-                <Breadcrumbs className={'bg-amber-300'}>
-                    <Link href="#" className="opacity-60 text-2xl font-bold">
-                        Dashboard
-                    </Link>
-                </Breadcrumbs>
-            </div>
+            <BreadCrumbs />
             <div className={'p-2'}>
                 <div className={'border-2 rounded-lg p-5'}>
                     <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
